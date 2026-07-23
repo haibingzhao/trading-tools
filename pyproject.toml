@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trading-tools"
+version = "0.1.0"
+description = "Standalone MCP tools for market data, fundamentals, news, and sentiment"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Easy Trading"},
+]
+keywords = ["trading", "mcp", "market-data", "fundamentals", "news", "sentiment"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
+# ─── Core dependencies ───
+dependencies = [
+    "fastmcp>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "pandas>=2.0.0",
+    "stockstats>=0.6.0",
+    "requests>=2.28.0",
+]
+
+[project.optional-dependencies]
+# Futu (HK + A-share)
+futu = [
+    "futu-api>=10.4.6408",
+]
+
+[project.scripts]
+trading-tools-mcp = "trading_tools.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/haibingzhao/trading-tools"
+Repository = "https://github.com/haibingzhao/trading-tools"
+
+[tool.setuptools.packages.find]
+include = ["trading_tools*"]
