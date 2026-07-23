@@ -1,6 +1,6 @@
 # trading-tools
 
-Standalone MCP server providing 12 market data tools for quantitative trading.
+Standalone MCP server with market data tools for quantitative trading — OHLCV, fundamentals, news, sentiment, and macro data.
 
 ## Tools
 
@@ -33,6 +33,8 @@ uvx --from . trading-tools-mcp
 
 ### MCP Client Config (Cursor / Claude Desktop / Windsurf)
 
+**Basic (no API keys):**
+
 ```json
 {
   "mcpServers": {
@@ -43,6 +45,38 @@ uvx --from . trading-tools-mcp
   }
 }
 ```
+
+**With API keys (recommended):**
+
+```json
+{
+  "mcpServers": {
+    "trading-tools": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/haibingzhao/trading-tools", "trading-tools-mcp"],
+      "env": {
+        "FINNHUB_API_KEY": "your-finnhub-key",
+        "FRED_API_KEY": "your-fred-key",
+        "ALPHA_VANTAGE_API_KEY": "your-alphavantage-key"
+      }
+    }
+  }
+}
+```
+
+> API keys are optional. Tools will fall back to sources that don't require keys when a key is not set.
+
+## Data Sources
+
+| Source | Coverage | API Key Required |
+|--------|----------|------------------|
+| Yahoo Finance | US, HK, Crypto | No |
+| Finnhub | Global news, company news | [Yes (free tier)](https://finnhub.io/register) |
+| FRED | US macro data | [Yes (free tier)](https://fred.stlouisfed.org/docs/api/api_key.html) |
+| AlphaVantage | Global news, fundamentals | [Yes (free tier)](https://www.alphavantage.co/support/#api-key) |
+| Futu OpenD | HK, A-share (real-time) | No (local daemon) |
+| Polymarket | Prediction markets | No |
+| StockTwits | US social sentiment | No |
 
 ### Environment Variables
 
@@ -58,18 +92,6 @@ ALPHA_VANTAGE_API_KEY=
 FUTU_HOST=127.0.0.1
 FUTU_PORT=11111
 ```
-
-## Data Sources
-
-| Source | Coverage | API Key Required |
-|--------|----------|------------------|
-| Yahoo Finance | US, HK, Crypto | No |
-| Finnhub | Global news, company news | Yes (free tier) |
-| FRED | US macro data | Yes (free tier) |
-| AlphaVantage | Global news, fundamentals | Yes (free tier) |
-| Futu OpenD | HK, A-share (real-time) | No (local daemon) |
-| Polymarket | Prediction markets | No |
-| StockTwits | US social sentiment | No |
 
 ## Requirements
 
